@@ -14,6 +14,7 @@ CONFIG += c++17
 
 SOURCES += \
     activecontour.cpp \
+    featurematching.cpp \
     filters.cpp \
     frequency.cpp \
     harris_operator.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 
 HEADERS += \
     activecontour.h \
+    featurematching.h \
     filters.h \
     frequency.h \
     harris_operator.h \
@@ -86,22 +88,23 @@ FORMS += \
 
 
 
-#INCLUDEPATH += D:\opencv\opencv\release\install\include
-#LIBS += D:\opencv\opencv\release\bin\libopencv_core460.dll
-#LIBS += D:\opencv\opencv\release\bin\libopencv_highgui460.dll
-#LIBS += D:\opencv\opencv\release\bin\libopencv_imgcodecs460.dll
-#LIBS += D:\opencv\opencv\release\bin\libopencv_imgproc460.dll
-#LIBS += D:\opencv\opencv\release\bin\libopencv_calib3d460.dll
+INCLUDEPATH += D:\opencv\opencv\release\install\include
+LIBS += D:\opencv\opencv\release\bin\libopencv_core460.dll
+LIBS += D:\opencv\opencv\release\bin\libopencv_highgui460.dll
+LIBS += D:\opencv\opencv\release\bin\libopencv_imgcodecs460.dll
+LIBS += D:\opencv\opencv\release\bin\libopencv_imgproc460.dll
+LIBS += D:\opencv\opencv\release\bin\libopencv_calib3d460.dll
+LIBS += D:\opencv\opencv\release\bin\libopencv_features2d460.dll
 
 
 
-INCLUDEPATH +=C:\Users\hp\Downloads\opencv\release\include
+#INCLUDEPATH +=C:\Users\hp\Downloads\opencv\release\include
 
-LIBS += C:\Users\hp\Downloads\opencv\release\bin\libopencv_core460.dll
-LIBS += C:\Users\hp\Downloads\opencv\release\bin\libopencv_highgui460.dll
-LIBS += C:\Users\hp\Downloads\opencv\release\bin\libopencv_imgcodecs460.dll
-LIBS += C:\Users\hp\Downloads\opencv\release\bin\libopencv_imgproc460.dll
-LIBS += C:\Users\hp\Downloads\opencv\release\bin\libopencv_calib3d460.dll
+#LIBS += C:\Users\hp\Downloads\opencv\release\bin\libopencv_core460.dll
+#LIBS += C:\Users\hp\Downloads\opencv\release\bin\libopencv_highgui460.dll
+#LIBS += C:\Users\hp\Downloads\opencv\release\bin\libopencv_imgcodecs460.dll
+#LIBS += C:\Users\hp\Downloads\opencv\release\bin\libopencv_imgproc460.dll
+#LIBS += C:\Users\hp\Downloads\opencv\release\bin\libopencv_calib3d460.dll
 
 
 #INCLUDEPATH += D:\OpenCV\opencv\release\include

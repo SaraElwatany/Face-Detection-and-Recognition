@@ -8,6 +8,7 @@
 #include "tab2dialog.h"
 #include "hough.h"
 #include "harris_operator.h"
+#include "featurematching.h"
 
 #include <QMainWindow>
 #include <opencv2/opencv.hpp>
@@ -168,6 +169,16 @@ private slots:
 
     void on_harris_button_clicked();
 
+    void on_browse_feature_clicked();
+
+    void on_browse_frature2_clicked();
+
+    void on_ssd_button_clicked();
+
+    void on_matchingbox_currentTextChanged(const QString &arg1);
+
+    void on_feature_threshold_valueChanged(double arg1);
+
 private:
     Ui::MainWindow *ui;
     Mat colored_uploadedImage_2;
@@ -180,6 +191,10 @@ private:
     Mat NormalizedImg;
     Mat EqualizedImg;
     Mat spareimage;
+    Mat upload_match_1;
+    Mat upload_match_2;
+    Mat match_img;
+
 
     Mat spareimage1;
     Mat uploadedImage;
@@ -195,6 +210,7 @@ private:
     Hough hough;
     harris_operator harris;
     ActiveContour snake;
+    FeatureMatching matching;
     QString Norm_Number;
     QImage coloredimage;
 

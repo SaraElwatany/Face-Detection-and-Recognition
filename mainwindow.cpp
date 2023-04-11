@@ -11,6 +11,8 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
+#include <opencv2/features2d.hpp>
+
 # include <chrono>
 using namespace std::chrono;
 
@@ -100,6 +102,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui->close_line->setVisible(0);
     ui->double_maxR->setVisible(0);
     ui->double_minR->setVisible(0);
+
+
+
+
+    //Matching_features
+
+    ui->feature_threshold->setVisible(0);
+    ui->ssd_threshold->setVisible(0);
+    ui->ssd_button->setVisible(0);
+
+
+
+
+
+
+
 
 
 
@@ -1495,6 +1513,141 @@ void MainWindow::on_harris_button_clicked()
             int w = ui->harris_output->width();
             int h = ui->harris_output->height();
             ui->harris_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+
+}
+
+
+//**********************************************************************Feature_matching Tab************************************************************************
+
+
+
+void MainWindow::on_browse_feature_clicked()
+{
+    {
+        QFileDialog dialog(this);
+            dialog.setNameFilter(tr("Image Files (*.png *.jpg *.bmp)"));
+            dialog.setViewMode(QFileDialog::Detail);
+            QString fileName= QFileDialog::getOpenFileName(this, tr("Open Image"), "/",
+                tr("Image Files (*.png *.jpg *.bmp)"),0, QFileDialog::DontUseNativeDialog);
+
+
+
+            upload_match_1 =cv::imread(fileName.toStdString(),cv::IMREAD_GRAYSCALE);
+            QImage qimg(upload_match_1.data, upload_match_1.cols, upload_match_1.rows, upload_match_1.step, QImage::Format_Grayscale8);
+            QPixmap output = QPixmap::fromImage(qimg);
+            ui->feature_1->setPixmap(QPixmap::fromImage(qimg));
+            int w= ui->feature_1->width();
+            int h= ui->feature_1->height();
+            ui->feature_1->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+
+            if (!fileName.isEmpty())
+            {
+
+                QImage image(fileName);
+                QPixmap pix = QPixmap::fromImage(image);
+                ui->feature_1->setPixmap(pix);
+                int w = ui->feature_1->width();
+                int h = ui->feature_1->height();
+                ui->feature_1->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
+//                upload_match = cv::imread(fileName.toStdString(),COLOR_BGR2BGRA);
+//                spareimage1 = upload_match;
+
+            }
+    }
+}
+
+void MainWindow::on_browse_frature2_clicked()
+{
+    {
+        QFileDialog dialog(this);
+            dialog.setNameFilter(tr("Image Files (*.png *.jpg *.bmp)"));
+            dialog.setViewMode(QFileDialog::Detail);
+            QString fileName= QFileDialog::getOpenFileName(this, tr("Open Image"), "/",
+                tr("Image Files (*.png *.jpg *.bmp)"),0, QFileDialog::DontUseNativeDialog);
+
+
+
+            upload_match_2 =cv::imread(fileName.toStdString(),cv::IMREAD_GRAYSCALE);
+            QImage qimg(upload_match_2.data, upload_match_2.cols, upload_match_2.rows, upload_match_2.step, QImage::Format_Grayscale8);
+            QPixmap output = QPixmap::fromImage(qimg);
+            ui->feature_2->setPixmap(QPixmap::fromImage(qimg));
+            int w= ui->feature_2->width();
+            int h= ui->feature_2->height();
+            ui->feature_2->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+
+            if (!fileName.isEmpty())
+            {
+
+                QImage image(fileName);
+                QPixmap pix = QPixmap::fromImage(image);
+                ui->feature_2->setPixmap(pix);
+                int w = ui->feature_2->width();
+                int h = ui->feature_2->height();
+                ui->feature_2->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
+            }
+    }
+}
+
+
+void MainWindow::on_ssd_button_clicked()
+{
+    ui->feature_threshold->setVisible(0);
+    ui->ssd_threshold->setVisible(0);
+    ui->ssd_button->setVisible(0);
+
+
+}
+
+
+void MainWindow::on_matchingbox_currentTextChanged(const QString &arg1)
+{
+    QString option_matching = ui->matchingbox->currentText();
+    if (option_matching == "Sum of squard differenced"){
+        ui->feature_threshold->setVisible(1);
+        ui->ssd_threshold->setVisible(1);
+        ui->ssd_button->setVisible(1);
+
+            Ptr<SIFT> sift = SIFT::create();
+            vector<KeyPoint> keypoints1, keypoints2;
+            Mat descriptors1, descriptors2;
+            sift->detectAndCompute(upload_match_1, noArray(), keypoints1, descriptors1);
+            sift->detectAndCompute(upload_match_2, noArray(), keypoints2, descriptors2);
+            double threshold = ui->feature_threshold->value();
+            vector<DMatch> matches=matching.match_features(descriptors1,descriptors2,threshold);
+            drawMatches(upload_match_1, keypoints1, upload_match_2, keypoints2, matches, match_img, Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+            QImage::Format format=QImage::Format_Grayscale8;
+            int bpp=match_img.channels();
+            if(bpp==3)
+                format=QImage::Format_RGB888;
+            QImage img(match_img.cols,match_img.rows,format);
+            uchar *sptr,*dptr;
+            int linesize=match_img.cols*bpp;
+            for(int y=0;y<match_img.rows;y++){
+                sptr=match_img.ptr(y);
+                dptr=img.scanLine(y);
+                memcpy(dptr,sptr,linesize);
+            }
+            if(bpp==3)
+               QPixmap::fromImage(img.rgbSwapped());
+            QPixmap pix = QPixmap::fromImage(img);
+            ui->ssd_output->setPixmap(pix);
+            int width = ui->ssd_output->width();
+            int height = ui->ssd_output->height();
+            ui->ssd_output->setPixmap(pix.scaled(width,height,Qt::KeepAspectRatio));
+
+
+    }
+
+
+}
+
+
+void MainWindow::on_feature_threshold_valueChanged(double arg1)
+{
+    on_ObjectBox_currentTextChanged("test");
+
 
 }
 
