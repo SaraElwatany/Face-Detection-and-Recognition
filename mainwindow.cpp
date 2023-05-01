@@ -11,10 +11,6 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
-#include <opencv2/features2d.hpp>
-
-# include <chrono>
-using namespace std::chrono;
 
 
 
@@ -53,7 +49,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->Global_max->setMinimum(1);
     ui->Global_max->setMaximum(255);
     ui->NoiseParameters->setVisible(0);
-
+    ui->harris_kernal->setMinimum(1);
+     ui->harris_kernal->setSingleStep(2);
 
 
     // edge
@@ -104,17 +101,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->double_minR->setVisible(0);
 
 
-
-
-    //Matching_features
-
-    ui->feature_threshold->setVisible(0);
-    ui->ssd_threshold->setVisible(0);
-    ui->ssd_button->setVisible(0);
-
-
-
-
+// threshold
+  ui->threshold_value->setVisible(0);
+  ui->thres->setVisible(0);
+  ui->Threshold_button->setVisible(0);
+  ui->block_size->setVisible(0);
+  ui->blocksize->setVisible(0);
+  ui->block_size->setMaximum(255);
+  ui->global_thresholdin_button->setVisible(1);
+  ui->global_thresholdin_button->setVisible(1);
 
 
 
@@ -1379,14 +1374,6 @@ void MainWindow::on_double_maxR_valueChanged(double arg1)
 //**********************************************************************Fifth Tab************************************************************************
 
 
-////////////snake///////////////////////////
-//void MainWindow::on_Tab9_currentChanged(int index)
-//{
-
-//}
-
-
-
 void MainWindow::on_tab5_Browse_2_clicked()
 {
     QFileDialog dialog(this);
@@ -1451,6 +1438,181 @@ void MainWindow::on_snake_2_clicked()
 //  waitKey();
 
 }
+
+
+
+
+//******************************************************************** SIFT Tab ************************************************************************
+void MainWindow::on_tab7_Browse1_clicked()
+{
+
+    QFileDialog dialog(this);
+    dialog.setNameFilter(tr("Image Files (*.png *.jpg *.bmp)"));
+    dialog.setViewMode(QFileDialog::Detail);
+    QString fileName= QFileDialog::getOpenFileName(this, tr("Open Image"), "/",
+        tr("Image Files (*.png *.jpg *.bmp)"),0, QFileDialog::DontUseNativeDialog);
+
+    if (!fileName.isEmpty())
+    {
+
+
+        uploadedImage_7_1 = cv::imread(fileName.toStdString(),cv::IMREAD_ANYCOLOR);
+        QImage image(fileName);
+        QPixmap pix = QPixmap::fromImage(image);
+        ui->tab7_image11->setPixmap(pix);
+        int w = ui->tab7_image11->width();
+        int h = ui->tab7_image11->height();
+        ui->tab7_image11->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
+
+
+        // Draw detected Features
+        auto start = high_resolution_clock::now();
+        DetectedImage_7_1 = sift.Draw_Blob(uploadedImage_7_1, S_lyrs);
+        // Get Computational Time
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        cout << "Time taken in microseconds for first image: ";
+        cout << duration.count() << endl;
+
+        cvtColor(DetectedImage_7_1, DetectedImage_7_1, cv::COLOR_BGR2RGB);
+        QImage img2 = QImage((uchar*)DetectedImage_7_1.data, DetectedImage_7_1.cols, DetectedImage_7_1.rows, DetectedImage_7_1.step, QImage::Format_RGB888);
+
+
+        QPixmap pix2 = QPixmap::fromImage(img2);
+        ui->tab7_image12->setPixmap(pix2);
+        int width = ui->tab7_image12->width();
+        int height = ui->tab7_image12->height();
+        ui->tab7_image12->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));
+
+    }
+
+
+
+}
+
+
+
+
+
+void MainWindow::on_tab7_Browse2_clicked()
+{
+
+    QFileDialog dialog(this);
+    dialog.setNameFilter(tr("Image Files (*.png *.jpg *.bmp)"));
+    dialog.setViewMode(QFileDialog::Detail);
+    QString fileName= QFileDialog::getOpenFileName(this, tr("Open Image"), "/",
+        tr("Image Files (*.png *.jpg *.bmp)"),0, QFileDialog::DontUseNativeDialog);
+
+    if (!fileName.isEmpty())
+    {
+
+
+        uploadedImage_7_2 = cv::imread(fileName.toStdString(),cv::IMREAD_ANYCOLOR);
+        QImage image(fileName);
+        QPixmap pix = QPixmap::fromImage(image);
+        ui->tab7_image21->setPixmap(pix);
+        int w = ui->tab7_image21->width();
+        int h = ui->tab7_image21->height();
+        ui->tab7_image21->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
+
+        // Draw detected Features
+        auto start = high_resolution_clock::now();
+        DetectedImage_7_2 = sift.Draw_Blob(uploadedImage_7_2, S_lyrs);
+
+        // Get Computational Time
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        cout << "Time taken in microseconds for second image: ";
+        cout << duration.count() << endl;
+
+        cvtColor(DetectedImage_7_2, DetectedImage_7_2, cv::COLOR_BGR2RGB);
+        QImage img2 = QImage((uchar*)DetectedImage_7_2.data, DetectedImage_7_2.cols, DetectedImage_7_2.rows, DetectedImage_7_2.step, QImage::Format_RGB888);
+
+
+
+        QPixmap pix2 = QPixmap::fromImage(img2);
+        ui->tab7_image22->setPixmap(pix2);
+        int width = ui->tab7_image22->width();
+        int height = ui->tab7_image22->height();
+        ui->tab7_image22->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));
+
+    }
+
+
+}
+
+
+
+void MainWindow::Draw_Blob1(){
+
+    // Draw detected Features
+    auto start = high_resolution_clock::now();
+    DetectedImage_7_1 = sift.Draw_Blob(uploadedImage_7_1, S_lyrs);
+    // Get Computational Time
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "Time taken in microseconds for first image: ";
+    cout << duration.count() << endl;
+
+    cvtColor(DetectedImage_7_1, DetectedImage_7_1, cv::COLOR_BGR2RGB);
+    QImage img2 = QImage((uchar*)DetectedImage_7_1.data, DetectedImage_7_1.cols, DetectedImage_7_1.rows, DetectedImage_7_1.step, QImage::Format_RGB888);
+
+    QPixmap pix2 = QPixmap::fromImage(img2);
+    ui->tab7_image12->setPixmap(pix2);
+    int width = ui->tab7_image12->width();
+    int height = ui->tab7_image12->height();
+    ui->tab7_image12->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));
+}
+
+
+
+
+void MainWindow::Draw_Blob2(){
+
+    // Draw detected Features
+    auto start = high_resolution_clock::now();
+    DetectedImage_7_2 = sift.Draw_Blob(uploadedImage_7_2, S_lyrs);
+
+    // Get Computational Time
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "Time taken in microseconds for second image: ";
+    cout << duration.count() << endl;
+
+    cvtColor(DetectedImage_7_2, DetectedImage_7_2, cv::COLOR_BGR2RGB);
+    QImage img2 = QImage((uchar*)DetectedImage_7_2.data, DetectedImage_7_2.cols, DetectedImage_7_2.rows, DetectedImage_7_2.step, QImage::Format_RGB888);
+
+
+    QPixmap pix2 = QPixmap::fromImage(img2);
+    ui->tab7_image22->setPixmap(pix2);
+    int width = ui->tab7_image22->width();
+    int height = ui->tab7_image22->height();
+    ui->tab7_image22->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));
+
+}
+
+
+void MainWindow::on_spinBox7_1_valueChanged(int arg1)
+{
+    S_lyrs = arg1;
+    Draw_Blob1();
+}
+
+
+
+
+void MainWindow::on_spinBox7_2_valueChanged(int arg1)
+{
+    S_lyrs = arg1;
+    Draw_Blob2();
+}
+
+
+
+
+
 //**********************************************************************Harris Tab************************************************************************
 
 void MainWindow::on_harris_browse_clicked()
@@ -1490,9 +1652,10 @@ void MainWindow::on_harris_browse_clicked()
 
 void MainWindow::on_harris_button_clicked()
 {
-            int kernal_size=3;
+
+            int kernal_size= ui->harris_kernal->value();
+             double thresholding = ui->thresholding->value();
             double alpha=0.05;
-            double thresholding=0.01;
             clock_t start, end;
             start = clock();
             Mat gray=harris.convertToGray(uploadedImage_1);
@@ -1504,9 +1667,12 @@ void MainWindow::on_harris_button_clicked()
             end = clock();
             // Calculating total time taken by the program.
             double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
-            cout << "Time taken by program is : " << fixed
-                 << time_taken << setprecision(5);
-            cout << " sec " << endl;
+            QString time_taken_str = QString("Time taken by program is: %1 sec").arg(QString::number(time_taken, 'f', 5));
+                ui->Time->setText(time_taken_str);
+//            cout << "Time taken by program is : " << fixed
+//                 << time_taken << setprecision(5);
+//            cout << " sec " << endl;
+
             QImage qimg(harris_output.data, harris_output.cols, harris_output.rows, harris_output.step, QImage::Format_RGB888);
             QPixmap output=QPixmap::fromImage(qimg);
             ui->harris_output->setPixmap(output);
@@ -1517,7 +1683,7 @@ void MainWindow::on_harris_button_clicked()
 }
 
 
-//**********************************************************************Feature_matching Tab************************************************************************
+//**************************************************************** Feature_matching Tab ************************************************************************
 
 
 
@@ -1639,6 +1805,38 @@ void MainWindow::on_matchingbox_currentTextChanged(const QString &arg1)
 
 
     }
+     if (option_matching == "Nomlized Correlation"){
+         Ptr<SIFT> sift = SIFT::create();
+         vector<KeyPoint> keypoints1, keypoints2;
+         Mat descriptors1, descriptors2;
+         cv::resize(upload_match_1, upload_match_1, Size(256, 256));
+         cv::resize(upload_match_2, upload_match_2, Size(256, 256));
+         sift->detectAndCompute(upload_match_1, noArray(), keypoints1, descriptors1);
+         sift->detectAndCompute(upload_match_2, noArray(), keypoints2, descriptors2);
+         //Calls the feature_matching_temp() function with method="NCC"
+         vector<DMatch> matched_features = matching.feature_matching_temp(descriptors1, descriptors2,"ncc");
+
+         //sort the features in order to identify the best matches
+         sort(matched_features.begin(), matched_features.end(), [](DMatch match1, DMatch match2) {
+         return match1.distance > match2.distance; });
+
+         //visualizes the results
+         Mat result ;
+
+         vector<DMatch> best_matches;
+
+         for(int i =0 ; i<30; i++){
+             best_matches.push_back(matched_features[i]);
+         }
+
+         drawMatches(upload_match_1, keypoints1, upload_match_2, keypoints1,best_matches, result,Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+         QImage qimg(result.data, result.cols, result.rows, result.step, QImage::Format_RGB888);
+         QPixmap output=QPixmap::fromImage(qimg);
+         ui->ssd_output->setPixmap(output);
+         int w = ui->ssd_output->width();
+         int h = ui->ssd_output->height();
+         ui->ssd_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+     }
 
 
 }
@@ -1649,5 +1847,131 @@ void MainWindow::on_feature_threshold_valueChanged(double arg1)
     on_ObjectBox_currentTextChanged("test");
 
 
+}
+
+
+
+
+//**********************************************************************Thrsholding Methods Tab************************************************************************
+
+
+void MainWindow::on_Threshold_browse_clicked()
+{
+    QFileDialog dialog(this);
+        dialog.setNameFilter(tr("Image Files (*.png *.jpg *.bmp)"));
+        dialog.setViewMode(QFileDialog::Detail);
+        QString fileName= QFileDialog::getOpenFileName(this, tr("Open Image"), "/",
+            tr("Image Files (*.png *.jpg *.bmp)"),0, QFileDialog::DontUseNativeDialog);
+
+        uploadedImage_1 =cv::imread(fileName.toStdString(),cv::IMREAD_GRAYSCALE);
+        QImage qimg(uploadedImage_1.data, uploadedImage_1.cols, uploadedImage_1.rows, uploadedImage_1.step, QImage::Format_Grayscale8);
+        QPixmap output = QPixmap::fromImage(qimg);
+        ui->thresholdd_output->setPixmap(QPixmap::fromImage(qimg));
+        int w= ui->thresholdd_output->width();
+        int h= ui->thresholdd_output->height();
+        ui->thresholdd_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+        if (!fileName.isEmpty())
+        {
+
+            QImage image(fileName);
+            QPixmap pix = QPixmap::fromImage(image);
+            ui->Threshold_input->setPixmap(pix);
+            int w = ui->Threshold_input->width();
+            int h = ui->Threshold_input->height();
+            ui->Threshold_input->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
+            uploadedImage_1 = cv::imread(fileName.toStdString(),cv::IMREAD_GRAYSCALE);
+            spareimage1 = uploadedImage_1;
+
+        }
+}
+
+
+void MainWindow::on_thrshold_option_currentTextChanged(const QString &arg1)
+{
+    thresholdingOption = ui->thrshold_option->currentText();
+
+}
+
+void MainWindow::on_global_thresholdin_button_clicked()
+{
+
+    ui->threshold_value->setVisible(1);
+    ui->thres->setVisible(1);
+    ui->block_size->setVisible(0);
+    ui->blocksize->setVisible(0);
+    ui->Threshold_button->setVisible(0);
+    if (thresholdingOption == "Optimal Thresholding"){
+        Mat globalOptimal=uploadedImage_1;
+        int Optimal_threshold=thresholding.optimalThresholding(globalOptimal);
+        ui->threshold_value->setText( QString::number( Optimal_threshold ));
+        Mat optimal_global= thresholding.globalThresholding(uploadedImage_1,  Optimal_threshold , 255);
+        QImage qimg(optimal_global.data, optimal_global.cols, optimal_global.rows, optimal_global.step, QImage::Format_Grayscale8);
+        QPixmap output=QPixmap::fromImage(qimg);
+        ui->harris_output->setPixmap(output);
+        int w = ui->thresholdd_output->width();
+        int h = ui->thresholdd_output->height();
+        ui->thresholdd_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+
+    }
+    if (thresholdingOption == "Otsu Thresholding"){
+        Mat globalOtsu=uploadedImage_1;
+       int otsuThreshold= thresholding.otsuThresholding(globalOtsu);
+        ui->threshold_value->setText( QString::number( otsuThreshold ));
+        Mat Ostu_global= thresholding.globalThresholding(uploadedImage_1,  otsuThreshold , 255);
+        QImage qimg(Ostu_global.data, Ostu_global.cols, Ostu_global.rows, Ostu_global.step, QImage::Format_Grayscale8);
+        QPixmap output=QPixmap::fromImage(qimg);
+        ui->harris_output->setPixmap(output);
+        int w = ui->thresholdd_output->width();
+        int h = ui->thresholdd_output->height();
+        ui->thresholdd_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+
+
+    }
+
+}
+
+
+void MainWindow::on_local_tresholding_button_clicked()
+{
+
+
+    ui->Threshold_button->setVisible(1);
+    ui->block_size->setVisible(1);
+    ui->blocksize->setVisible(1);
+    ui->threshold_value->setVisible(0);
+    ui->thres->setVisible(0);
+
+
+
+}
+
+
+
+void MainWindow::on_Threshold_button_clicked()
+{   int LocalBlockSize= ui->block_size->value();
+    if (thresholdingOption == "Optimal Thresholding"){
+
+            Mat localOptimal=uploadedImage_1;
+            Mat optimal_local=  thresholding.localThresholding(localOptimal,LocalBlockSize,"optimal");
+            QImage qimg(optimal_local.data, optimal_local.cols, optimal_local.rows, optimal_local.step, QImage::Format_Grayscale8);
+            QPixmap output=QPixmap::fromImage(qimg);
+            ui->harris_output->setPixmap(output);
+            int w = ui->thresholdd_output->width();
+            int h = ui->thresholdd_output->height();
+            ui->thresholdd_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+    }
+    if (thresholdingOption == "Otsu Thresholding"){
+
+        Mat localOtsu=uploadedImage_1;
+        Mat otsu_local=  thresholding.localThresholding(localOtsu,LocalBlockSize,"otsu");
+        QImage qimg(otsu_local.data, otsu_local.cols, otsu_local.rows, otsu_local.step, QImage::Format_Grayscale8);
+        QPixmap output=QPixmap::fromImage(qimg);
+        ui->harris_output->setPixmap(output);
+        int w = ui->thresholdd_output->width();
+        int h = ui->thresholdd_output->height();
+        ui->thresholdd_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+
+    }
 }
 

@@ -21,3 +21,4 @@ public:
 };
 
 #endif // HARRIS_OPERATOR_H
+

@@ -5,10 +5,12 @@
 #include "frequency.h"
 #include "histograms.h"
 #include "filters.h"
-#include "tab2dialog.h"
 #include "hough.h"
+#include "sift.h"
 #include "harris_operator.h"
 #include "featurematching.h"
+#include "thresholding.h"
+
 
 #include <QMainWindow>
 #include <opencv2/opencv.hpp>
@@ -114,7 +116,7 @@ private slots:
 
     void on_noiseBox2_valueChanged(double arg1);
 
-    // tab 3
+    // Tab 3
     void on_image_1_low_3_clicked();
 
     void on_image_1_high_3_clicked();
@@ -146,25 +148,24 @@ private slots:
 
 
     void on_close_circle_clicked();
-
-//    void on_min_box_valueChanged(int arg1);
-
+//  void on_min_box_valueChanged(int arg1);
     void on_line_threshold_valueChanged(int arg1);
-
-//    void on_max_box_valueChanged(int arg1);
+//  void on_max_box_valueChanged(int arg1);
     void on_double_minR_valueChanged(double arg1);
-//    void on_double_minR_valueChanged(double arg1);
+//  void on_double_minR_valueChanged(double arg1);
     void on_double_maxR_valueChanged(double arg1);
 
-//    void on_Tab9_currentChanged(int index);
-
-
-
-
+// Tab 5
     void on_tab5_Browse_2_clicked();
-
     void on_snake_2_clicked();
 
+// Tab 7
+    void on_tab7_Browse1_clicked();
+    void on_tab7_Browse2_clicked();
+    void Draw_Blob1();
+    void Draw_Blob2();
+
+// harris
     void on_harris_browse_clicked();
 
     void on_harris_button_clicked();
@@ -179,6 +180,22 @@ private slots:
 
     void on_feature_threshold_valueChanged(double arg1);
 
+    void on_spinBox7_1_valueChanged(int arg1);
+
+    void on_spinBox7_2_valueChanged(int arg1);
+
+    void on_Threshold_browse_clicked();
+
+    void on_thrshold_option_currentTextChanged(const QString &arg1);
+
+    void on_global_thresholdin_button_clicked();
+
+    void on_local_tresholding_button_clicked();
+
+//    void on_threshold_button_clicked();
+
+    void on_Threshold_button_clicked();
+
 private:
     Ui::MainWindow *ui;
     Mat colored_uploadedImage_2;
@@ -188,13 +205,16 @@ private:
     Mat uploadedImage_32;
     Mat uploadedImage_4;
     Mat uploadedImage_4_colored;
+    Mat uploadedImage_7_1;
+    Mat uploadedImage_7_2;
+    Mat DetectedImage_7_1;
+    Mat DetectedImage_7_2;
     Mat NormalizedImg;
     Mat EqualizedImg;
     Mat spareimage;
     Mat upload_match_1;
     Mat upload_match_2;
     Mat match_img;
-
 
     Mat spareimage1;
     Mat uploadedImage;
@@ -208,11 +228,14 @@ private:
     Filters kernals;
     Histograms hist;
     Hough hough;
+    Sift sift;
+    QString Norm_Number;
+    QImage coloredimage;
     harris_operator harris;
     ActiveContour snake;
     FeatureMatching matching;
-    QString Norm_Number;
-    QImage coloredimage;
+    Thresholding thresholding;
+    QString thresholdingOption;
 
 
     double noise_value1=0;
@@ -225,7 +248,14 @@ private:
     int boxSize;
     int globalMax;
     int c;
+    int S_lyrs = 3;
+    int local;
+    int global;
+//    int LocalBlockSize;
 
+
+    //int radius1;
+    //int radius2;
 
 
 };
