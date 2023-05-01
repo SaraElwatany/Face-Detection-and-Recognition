@@ -114,7 +114,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-
+// Clustering
+    ui->KMeans_Box->setValue(1);
+    ui->Agg_groupBox->setVisible(0);
+    ui->KMeans_groupBox->setVisible(0);
 
 
 
@@ -1723,6 +1726,9 @@ void MainWindow::on_browse_feature_clicked()
     }
 }
 
+
+
+
 void MainWindow::on_browse_frature2_clicked()
 {
     {
@@ -1755,6 +1761,9 @@ void MainWindow::on_browse_frature2_clicked()
             }
     }
 }
+
+
+
 
 
 void MainWindow::on_ssd_button_clicked()
@@ -1973,5 +1982,105 @@ void MainWindow::on_Threshold_button_clicked()
         ui->thresholdd_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
 
     }
+}
+
+
+
+
+//******************************************************************** Tenth Tab(Clustering) ************************************************************************
+
+
+void MainWindow::on_tab10_browse_clicked()
+{
+
+    QFileDialog dialog(this);
+    dialog.setNameFilter(tr("Image Files (*.png *.jpg *.bmp)"));
+    dialog.setViewMode(QFileDialog::Detail);
+    QString fileName= QFileDialog::getOpenFileName(this, tr("Open Image"), "/",
+        tr("Image Files (*.png *.jpg *.bmp)"),0, QFileDialog::DontUseNativeDialog);
+
+    if (!fileName.isEmpty())
+    {
+
+
+        uploadedImage_10 = imread(fileName.toStdString(),cv::IMREAD_ANYCOLOR);
+        QImage image(fileName);
+        QPixmap pix = QPixmap::fromImage(image);
+        ui->tab10_img1->setPixmap(pix);
+        int w = ui->tab10_img1->width();
+        int h = ui->tab10_img1->height();
+        ui->tab10_img1->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
+    }
+
+}
+
+
+
+
+
+void MainWindow::on_cluster_options_currentTextChanged(const QString &arg1)
+{
+
+    QString option = ui->cluster_options->currentText();
+
+    if (option == "K-Means Clustering"){
+
+        ui->Agg_groupBox->setVisible(0);
+        ui->KMeans_groupBox->setVisible(1);
+
+        int k= ui->KMeans_Box->value();
+        uploadedImage_10_Segmented= cluster.GetKMeans(uploadedImage_10, k);
+
+        cvtColor(uploadedImage_10_Segmented, uploadedImage_10_Segmented, cv::COLOR_BGR2RGB);
+        QImage img2 = QImage((uchar*)uploadedImage_10_Segmented.data, uploadedImage_10_Segmented.cols, uploadedImage_10_Segmented.rows, uploadedImage_10_Segmented.step, QImage::Format_RGB888);
+
+        QPixmap pix2 = QPixmap::fromImage(img2);
+        //ui->tab10_img2->setPixmap(pix2);
+        int width = ui->tab10_img2->width();
+        int height = ui->tab10_img2->height();
+        ui->tab10_img2->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));
+
+    }
+
+
+
+    if (option == "Mean Shift Clustering"){
+
+        ui->Agg_groupBox->setVisible(0);
+        ui->KMeans_groupBox->setVisible(0);
+
+
+    }
+
+
+    if (option == "Agglomerative Clustering"){
+
+        ui->KMeans_groupBox->setVisible(0);
+        ui->Agg_groupBox->setVisible(1);
+
+        int bias= ui->KMeans_Box->value();
+        int clusters = 30000+bias;
+        /*uploadedImage_10_Segmented= cluster.BuildHeirarchy(uploadedImage_10, clusters);
+
+        cvtColor(uploadedImage_10_Segmented, uploadedImage_10_Segmented, cv::COLOR_BGR2RGB);
+        QImage img2 = QImage((uchar*)uploadedImage_10_Segmented.data, uploadedImage_10_Segmented.cols, uploadedImage_10_Segmented.rows, uploadedImage_10_Segmented.step, QImage::Format_RGB888);
+
+        QPixmap pix2 = QPixmap::fromImage(img2);
+        int width = ui->tab10_img2->width();
+        int height = ui->tab10_img2->height();
+        ui->tab10_img2->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));*/
+
+
+    }
+
+}
+
+
+
+
+void MainWindow::on_KMeans_Box_valueChanged(int arg1)
+{
+    on_cluster_options_currentTextChanged("NULL");
 }
 

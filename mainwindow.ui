@@ -2098,6 +2098,182 @@
      <attribute name="title">
       <string>Tab 10</string>
      </attribute>
+     <widget class="QGroupBox" name="threshold_box_2">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>110</y>
+        <width>1031</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QLabel" name="tab10_img1">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>10</y>
+         <width>431</width>
+         <height>351</height>
+        </rect>
+       </property>
+       <property name="mouseTracking">
+        <bool>false</bool>
+       </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="tab10_img2">
+       <property name="geometry">
+        <rect>
+         <x>590</x>
+         <y>10</y>
+         <width>421</width>
+         <height>351</height>
+        </rect>
+       </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="tab10_browse">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>60</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Browse.....</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="threshold_options_2">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>490</y>
+        <width>381</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Options</string>
+      </property>
+      <widget class="QComboBox" name="cluster_options">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>351</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Choose a Clustering Method</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>K-Means Clustering</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Mean Shift Clustering</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Agglomerative Clustering</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="Agg_groupBox">
+      <property name="geometry">
+       <rect>
+        <x>840</x>
+        <y>500</y>
+        <width>251</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Agglomerative Clustering</string>
+      </property>
+      <widget class="QSpinBox" name="agg_Box">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>30</y>
+         <width>51</width>
+         <height>31</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_11">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>141</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Number of Clusters : </string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="KMeans_groupBox">
+      <property name="geometry">
+       <rect>
+        <x>1150</x>
+        <y>250</y>
+        <width>161</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>K-Means Clustering</string>
+      </property>
+      <widget class="QSpinBox" name="KMeans_Box">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>40</y>
+         <width>51</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>30</y>
+         <width>21</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>K :</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>

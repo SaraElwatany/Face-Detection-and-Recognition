@@ -10,6 +10,7 @@
 #include "harris_operator.h"
 #include "featurematching.h"
 #include "thresholding.h"
+#include "clustering.h"
 
 
 #include <QMainWindow>
@@ -196,6 +197,12 @@ private slots:
 
     void on_Threshold_button_clicked();
 
+    void on_tab10_browse_clicked();
+
+    void on_cluster_options_currentTextChanged(const QString &arg1);
+
+    void on_KMeans_Box_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     Mat colored_uploadedImage_2;
@@ -209,6 +216,8 @@ private:
     Mat uploadedImage_7_2;
     Mat DetectedImage_7_1;
     Mat DetectedImage_7_2;
+    Mat uploadedImage_10;
+    Mat uploadedImage_10_Segmented;
     Mat NormalizedImg;
     Mat EqualizedImg;
     Mat spareimage;
@@ -236,6 +245,7 @@ private:
     FeatureMatching matching;
     Thresholding thresholding;
     QString thresholdingOption;
+    Clustering cluster;
 
 
     double noise_value1=0;
@@ -251,7 +261,7 @@ private:
     int S_lyrs = 3;
     int local;
     int global;
-//    int LocalBlockSize;
+//  int LocalBlockSize;
 
 
     //int radius1;

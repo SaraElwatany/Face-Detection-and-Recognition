@@ -40,6 +40,10 @@ public:
     double AdjustCentroids(Mat originalImage, int k, vector<Scalar> & clustersCentroids, vector<vector<Point>> Clusters, double & oldCentroid, double newCentroid);
     Mat PaintImage(Mat &segmentImage, int k, vector<vector<Point>> Clusters);
     Mat GetKMeans(Mat InputImage, int k);
+    Point GetMinimum(vector<double> vec);
+    double GetEuclideanDistance(Mat image, Point pt1, Point pt2);
+    Mat BuildHeirarchy(Mat image, int no_clusters);
+
 
 
 };
