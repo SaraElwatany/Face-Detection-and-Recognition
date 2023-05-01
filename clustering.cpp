@@ -188,3 +188,48 @@ Mat Clustering::PaintImage(Mat &segmentImage, int k, vector<vector<Point>> Clust
 
     return segmentImage;
 }
+
+
+
+
+
+Mat Clustering::GetKMeans(Mat InputImage, int k)
+{
+
+    // Set up cluster centroids, cluster vector, and threshold to terminate the iterations
+    vector<Scalar> clustersCentroids;
+    vector< vector<Point> > ptInClusters;
+    double threshold = 0.1;      // Stop whenever the difference in intensities between new & old centroid is equal or below the threshold
+    double oldCenter=INFINITY;
+    double newCenter=0;
+    double diffChange = oldCenter - newCenter;
+
+    // Initialize K random centroids
+    InitializeCentroids(InputImage, k, clustersCentroids, ptInClusters);
+
+    // Iterate until cluster centers nearly stop moving (using threshold)
+    while(diffChange > threshold){
+
+        newCenter = 0;        // Reset change
+
+        // Clear associated pixels for each cluster
+        for(int cluster=0; cluster<k; cluster++){
+             ptInClusters[cluster].clear();
+        }
+
+        //find all closest pixel to cluster centers
+        BuildClusters(InputImage, k, clustersCentroids, ptInClusters);
+        // Recompute cluster centers values
+        diffChange = AdjustCentroids(InputImage, k, clustersCentroids, ptInClusters, oldCenter, newCenter);
+    }
+
+
+    // Show output image
+    Mat OutputImage = InputImage.clone();
+    OutputImage = PaintImage(OutputImage, k, ptInClusters);
+    imshow("Segmentation", OutputImage);
+    waitKey(0);
+
+
+    return OutputImage;
+}

@@ -30,13 +30,16 @@ class Clustering
 {
 
 
+
 public:
+
     Clustering();
     void InitializeCentroids(Mat originalImage, int k, vector<Scalar> &clustersCentroids, vector<vector<Point>> &Clusters);
     double GetEuclideanDistance(Scalar pixel, Scalar Centroid);
     void BuildClusters(Mat originalImage, int k, vector<Scalar> clustersCentroids, vector<vector<Point>> & Clusters);
     double AdjustCentroids(Mat originalImage, int k, vector<Scalar> & clustersCentroids, vector<vector<Point>> Clusters, double & oldCentroid, double newCentroid);
     Mat PaintImage(Mat &segmentImage, int k, vector<vector<Point>> Clusters);
+    Mat GetKMeans(Mat InputImage, int k);
 
 
 };
