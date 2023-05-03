@@ -27,7 +27,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>9</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="tab_1">
      <attribute name="title">
@@ -2192,6 +2192,11 @@
        </item>
        <item>
         <property name="text">
+         <string>Region Growing Segmentation</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Mean Shift Clustering</string>
         </property>
        </item>
@@ -2271,6 +2276,127 @@
        </property>
        <property name="text">
         <string>K :</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="region_box">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>500</y>
+        <width>431</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>GroupBox</string>
+      </property>
+      <widget class="QLabel" name="points_label">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>81</width>
+         <height>81</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Threshold</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="done_button">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>80</y>
+         <width>93</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Done</string>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="region_threshold">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>50</y>
+         <width>111</width>
+         <height>25</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="meanshift">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>600</y>
+        <width>341</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>GroupBox</string>
+      </property>
+      <widget class="QLabel" name="spatial_BW">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>121</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Spatial Bandwith</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="color_BW">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>111</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Color Bandwith</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="meanshift_done">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>110</y>
+         <width>93</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Done</string>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="spatial_val">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>40</y>
+         <width>91</width>
+         <height>25</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="color_val">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>80</y>
+         <width>91</width>
+         <height>25</height>
+        </rect>
        </property>
       </widget>
      </widget>

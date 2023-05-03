@@ -13,6 +13,8 @@ CONFIG += c++17
 
 
 SOURCES += \
+    MeanShift.cpp \
+    RegionGrowing.cpp \
     activecontour.cpp \
     clustering.cpp \
     featurematching.cpp \
@@ -27,6 +29,8 @@ SOURCES += \
     thresholding.cpp
 
 HEADERS += \
+    MeanShift.h \
+    RegionGrowing.h \
     activecontour.h \
     clustering.h \
     featurematching.h \
@@ -56,59 +60,59 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_calib3d470.dll
+#win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_calib3d470.dll
 
-INCLUDEPATH += D:\OpenCV\opencv\release\install\include
-
-
-INCLUDEPATH += D:/OpenCV/opencv/release/include
-DEPENDPATH += D:/OpenCV/opencv/release/include
+#INCLUDEPATH += D:\OpenCV\opencv\release\install\include
 
 
-win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_core470.dll
-
-INCLUDEPATH += D:/OpenCV/opencv/release/include
-DEPENDPATH += D:/OpenCV/opencv/release/include
+#INCLUDEPATH += D:/OpenCV/opencv/release/include
+#DEPENDPATH += D:/OpenCV/opencv/release/include
 
 
+#win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_core470.dll
 
-win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_highgui470.dll
-
-INCLUDEPATH += D:/OpenCV/opencv/release/include
-DEPENDPATH += D:/OpenCV/opencv/release/include
+#INCLUDEPATH += D:/OpenCV/opencv/release/include
+#DEPENDPATH += D:/OpenCV/opencv/release/include
 
 
 
+#win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_highgui470.dll
 
-win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_imgcodecs470.dll
-
-INCLUDEPATH += D:/OpenCV/opencv/release/include
-DEPENDPATH += D:/OpenCV/opencv/release/include
-
-
-
-win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_imgproc470.dll
-
-INCLUDEPATH += D:/OpenCV/opencv/release/include
-DEPENDPATH += D:/OpenCV/opencv/release/include
-
-
-win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_features2d470.dll
-
-INCLUDEPATH += D:/OpenCV/opencv/release/include
-DEPENDPATH += D:/OpenCV/opencv/release/include
+#INCLUDEPATH += D:/OpenCV/opencv/release/include
+#DEPENDPATH += D:/OpenCV/opencv/release/include
 
 
 
 
+#win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_imgcodecs470.dll
 
-#INCLUDEPATH += D:\opencv\opencv\release\install\include
-#LIBS += D:\opencv\opencv\release\bin\libopencv_core460.dll
-#LIBS += D:\opencv\opencv\release\bin\libopencv_highgui460.dll
-#LIBS += D:\opencv\opencv\release\bin\libopencv_imgcodecs460.dll
-#LIBS += D:\opencv\opencv\release\bin\libopencv_imgproc460.dll
-#LIBS += D:\opencv\opencv\release\bin\libopencv_calib3d460.dll
+#INCLUDEPATH += D:/OpenCV/opencv/release/include
+#DEPENDPATH += D:/OpenCV/opencv/release/include
 
+
+
+#win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_imgproc470.dll
+
+#INCLUDEPATH += D:/OpenCV/opencv/release/include
+#DEPENDPATH += D:/OpenCV/opencv/release/include
+
+
+#win32: LIBS += -LD:/OpenCV/opencv/release/lib/ -llibopencv_features2d470.dll
+
+#INCLUDEPATH += D:/OpenCV/opencv/release/include
+#DEPENDPATH += D:/OpenCV/opencv/release/include
+
+
+
+
+
+INCLUDEPATH += D:\opencv\opencv\release\install\include
+LIBS += D:\opencv\opencv\release\bin\libopencv_core460.dll
+LIBS += D:\opencv\opencv\release\bin\libopencv_highgui460.dll
+LIBS += D:\opencv\opencv\release\bin\libopencv_imgcodecs460.dll
+LIBS += D:\opencv\opencv\release\bin\libopencv_imgproc460.dll
+LIBS += D:\opencv\opencv\release\bin\libopencv_calib3d460.dll
+LIBS +=  D:\opencv\opencv\release\bin\libopencv_features2d460.dll
 
 
 

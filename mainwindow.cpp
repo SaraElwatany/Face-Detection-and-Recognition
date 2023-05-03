@@ -120,9 +120,30 @@ MainWindow::MainWindow(QWidget *parent)
     ui->KMeans_groupBox->setVisible(0);
 
 
+    //Region growing
+
+    ui->region_box->setVisible(0);
+    ui->points_label->setVisible(0);
+    ui->done_button->setVisible(0);
+    ui->region_threshold->setVisible(0);
+
+
+
+    //Mean Shift
+    ui->meanshift->setVisible(0);
+    ui->spatial_BW->setVisible(0);
+    ui->color_BW->setVisible(0);
+    ui->spatial_val->setVisible(0);
+    ui->color_val->setVisible(0);
+    ui->meanshift_done->setVisible(0);
+
+
+
 
     QPixmap pix("/home/...");
     ui->path->setPixmap(pix);
+
+
 }
 
 
@@ -1937,6 +1958,20 @@ void MainWindow::on_global_thresholdin_button_clicked()
 
 
     }
+    if(thresholdingOption == "Spectural Thresholding"){
+        ui->threshold_value->setVisible(0);
+        ui->thres->setVisible(0);
+
+        Mat globslcpect_input=uploadedImage_1;
+        Mat Global_spectral=thresholding.Global_Spectral(globslcpect_input);
+        QImage qimg(Global_spectral.data, Global_spectral.cols, Global_spectral.rows, Global_spectral.step, QImage::Format_Grayscale8);
+        QPixmap output=QPixmap::fromImage(qimg);
+        ui->harris_output->setPixmap(output);
+        int w = ui->thresholdd_output->width();
+        int h = ui->thresholdd_output->height();
+        ui->thresholdd_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+
+    }
 
 }
 
@@ -1982,6 +2017,23 @@ void MainWindow::on_Threshold_button_clicked()
         ui->thresholdd_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
 
     }
+    if(thresholdingOption == "Spectural Thresholding"){
+        ui->threshold_value->setVisible(0);
+        ui->thres->setVisible(0);
+
+        Mat localspect_input=uploadedImage_1;
+
+        Mat local_spectral=thresholding.Local_Spectral(localspect_input, LocalBlockSize);
+        QImage qimg(local_spectral.data, local_spectral.cols, local_spectral.rows, local_spectral.step, QImage::Format_Grayscale8);
+        QPixmap output=QPixmap::fromImage(qimg);
+        ui->harris_output->setPixmap(output);
+        int w = ui->thresholdd_output->width();
+        int h = ui->thresholdd_output->height();
+        ui->thresholdd_output->setPixmap(output.scaled(w,h,Qt::KeepAspectRatio));
+
+    }
+
+
 }
 
 
@@ -2042,13 +2094,69 @@ void MainWindow::on_cluster_options_currentTextChanged(const QString &arg1)
         ui->tab10_img2->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));
 
     }
+    if(option=="Region Growing Segmentation"){
+
+        ui->Agg_groupBox->setVisible(0);
+        ui->KMeans_groupBox->setVisible(0);
+        ui->region_box->setVisible(1);
+        ui->points_label->setVisible(1);
+        ui->done_button->setVisible(1);
+        ui->region_threshold->setVisible(1);
+
+
+        vector<pair<int, int>> seed_set2 = {{100, 100}};
+        int threshold= ui->region_threshold->value();
+        cvtColor(uploadedImage_10, uploadedImage_10, cv::COLOR_RGB2GRAY);
+
+         segmented_image = Region_Growing.Region_Growing(uploadedImage_10, seed_set2,threshold,1);
+         normalize(segmented_image, segmented_image, 0, 255, cv::NORM_MINMAX, CV_8UC1);
+          cv::threshold(segmented_image, segmented_image, 128, 255, THRESH_BINARY_INV);
+
+          cvtColor(segmented_image, segmented_image, cv::COLOR_BGR2RGB);
+                  QImage img2 = QImage((uchar*)segmented_image.data, segmented_image.cols, segmented_image.rows, segmented_image.step, QImage::Format_RGB888);
+
+                  QPixmap pix2 = QPixmap::fromImage(img2);
+                  //ui->tab10_img2->setPixmap(pix2);
+                  int width = ui->tab10_img2->width();
+                  int height = ui->tab10_img2->height();
+                  ui->tab10_img2->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));
+
+
+    }
 
 
 
     if (option == "Mean Shift Clustering"){
 
+
+
         ui->Agg_groupBox->setVisible(0);
         ui->KMeans_groupBox->setVisible(0);
+        ui->meanshift->setVisible(1);
+        ui->spatial_BW->setVisible(1);
+        ui->color_BW->setVisible(1);
+        ui->spatial_val->setVisible(1);
+        ui->color_val->setVisible(1);
+        ui->meanshift_done->setVisible(1);
+
+
+        double spatial_val=ui->spatial_val->value();
+        double color_val=ui->color_val->value();
+
+        cv::resize(uploadedImage_10, uploadedImage_10, Size(256, 256), 0, 0, 1);
+        MeanShift meanShift;
+        meanShift.MeanShift_Segmentation(uploadedImage_10, spatial_val, color_val);
+
+        cvtColor(uploadedImage_10, uploadedImage_10, cv::COLOR_BGR2RGB);
+                QImage img2 = QImage((uchar*)uploadedImage_10.data, uploadedImage_10.cols, uploadedImage_10.rows, uploadedImage_10.step, QImage::Format_RGB888);
+
+                QPixmap pix2 = QPixmap::fromImage(img2);
+                //ui->tab10_img2->setPixmap(pix2);
+                int width = ui->tab10_img2->width();
+                int height = ui->tab10_img2->height();
+                ui->tab10_img2->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));
+
+
 
 
     }
@@ -2082,5 +2190,51 @@ void MainWindow::on_cluster_options_currentTextChanged(const QString &arg1)
 void MainWindow::on_KMeans_Box_valueChanged(int arg1)
 {
     on_cluster_options_currentTextChanged("NULL");
+}
+
+
+void MainWindow::on_done_button_clicked()
+{
+
+    ui->region_box->setVisible(0);
+    ui->points_label->setVisible(0);
+    ui->done_button->setVisible(0);
+    ui->region_threshold->setVisible(0);
+
+
+}
+
+
+void MainWindow::on_region_threshold_valueChanged(double arg1)
+{
+    on_ObjectBox_currentTextChanged("test");
+
+}
+
+
+void MainWindow::on_meanshift_done_clicked()
+{
+    ui->meanshift->setVisible(0);
+    ui->spatial_BW->setVisible(0);
+    ui->color_BW->setVisible(0);
+    ui->spatial_val->setVisible(0);
+    ui->color_val->setVisible(0);
+    ui->meanshift_done->setVisible(0);
+
+}
+
+
+
+void MainWindow::on_spatial_val_valueChanged(double arg1)
+{
+    on_ObjectBox_currentTextChanged("test");
+
+}
+
+
+void MainWindow::on_color_val_valueChanged(double arg1)
+{
+    on_ObjectBox_currentTextChanged("test");
+
 }
 

@@ -11,6 +11,8 @@
 #include "featurematching.h"
 #include "thresholding.h"
 #include "clustering.h"
+#include "RegionGrowing.h"
+#include "MeanShift.h"
 
 
 #include <QMainWindow>
@@ -203,6 +205,19 @@ private slots:
 
     void on_KMeans_Box_valueChanged(int arg1);
 
+    void on_done_button_clicked();
+
+//    void on_region_threshold_textChanged(const QString &arg1);
+
+    void on_region_threshold_valueChanged(double arg1);
+
+    void on_meanshift_done_clicked();
+
+
+    void on_spatial_val_valueChanged(double arg1);
+
+    void on_color_val_valueChanged(double arg1);
+
 private:
     Ui::MainWindow *ui;
     Mat colored_uploadedImage_2;
@@ -218,6 +233,7 @@ private:
     Mat DetectedImage_7_2;
     Mat uploadedImage_10;
     Mat uploadedImage_10_Segmented;
+    Mat GRAYSegmented;
     Mat NormalizedImg;
     Mat EqualizedImg;
     Mat spareimage;
@@ -233,6 +249,10 @@ private:
     Mat output_low_image;
     Mat output_high_image;
 
+
+     Mat segmented_image ;
+     Mat mean_shift_image;
+
     Frequency freq;
     Filters kernals;
     Histograms hist;
@@ -246,6 +266,8 @@ private:
     Thresholding thresholding;
     QString thresholdingOption;
     Clustering cluster;
+    RegionGrowing Region_Growing;
+    MeanShift Mean_shift;
 
 
     double noise_value1=0;
