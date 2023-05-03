@@ -60,6 +60,6 @@ The above repository includes our work from the previous tasks (Noising Image, D
 
 ## Used Papers:
 1. https://people.eecs.berkeley.edu/~malik/cs294/lowe-ijcv04.pdf
-2. (PDF) Image Segmentation using K-means Clustering (researchgate.net)
+2. https://www.researchgate.net/publication/342449462_Image_Segmentation_using_K-means_Clustering
 
 
