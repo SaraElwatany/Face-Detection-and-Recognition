@@ -26,7 +26,9 @@ The above repository includes our work from the previous tasks (Noising Image, D
 - clustering.h
 - clustering.cpp (Implementation of the k-means & agglomerative clustering for images)
 - thresholding.h
-- thresholding.cpp (Implementation of optimal , Otsu &  thresholding techniques)
+- thresholding.cpp (Implementation of Optimal , Otsu & Spectral thresholding techniques)
+- regiongrowing.h
+- regiongrowing.cpp (Implementation of Region Growing thresholding)
 
 
 
