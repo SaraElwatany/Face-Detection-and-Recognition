@@ -138,6 +138,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->meanshift_done->setVisible(0);
 
 
+    // Face Detection & Recognition
+    ui->output_lbl->setVisible(0);
 
 
     QPixmap pix("/home/...");
@@ -2235,6 +2237,120 @@ void MainWindow::on_spatial_val_valueChanged(double arg1)
 void MainWindow::on_color_val_valueChanged(double arg1)
 {
     on_ObjectBox_currentTextChanged("test");
+
+}
+
+
+
+
+
+
+
+
+
+//*************************************************************** Face Detection & Recognition Tab ************************************************************************
+
+
+
+
+void MainWindow::on_tab11_browse_clicked()
+{
+
+
+    QFileDialog dialog(this);
+    dialog.setNameFilter(tr("Image Files (*.png *.jpg *.bmp)"));
+    dialog.setViewMode(QFileDialog::Detail);
+    QString fileName= QFileDialog::getOpenFileName(this, tr("Open Image"), "/",
+        tr("Image Files (*.png *.jpg *.bmp)"),0, QFileDialog::DontUseNativeDialog);
+
+    if (!fileName.isEmpty())
+    {
+
+
+        uploadedImage_11 = imread(fileName.toStdString(),cv::IMREAD_ANYCOLOR);
+        QImage image(fileName);
+        QPixmap pix = QPixmap::fromImage(image);
+        ui->tab11_img1->setPixmap(pix);
+        int w = ui->tab11_img1->width();
+        int h = ui->tab11_img1->height();
+        ui->tab11_img1->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
+    }
+
+}
+
+
+
+
+
+
+
+void MainWindow::on_tab11_options_currentTextChanged(const QString &arg1)
+{
+
+
+    QString option = ui->tab11_options->currentText();
+    Mat processed;
+    Mat testImg;
+
+    cv::resize(uploadedImage_11, uploadedImage_11, Size(640, 480));
+    testImg = faceDetector.GetFace(uploadedImage_11, processed);
+
+
+
+
+    if (option == "Face Detection"){
+
+        ui->output_lbl->setVisible(0);
+
+        cvtColor(processed, processed, cv::COLOR_BGR2RGB);
+        QImage img2 = QImage((uchar*)processed.data, processed.cols, processed.rows, processed.step, QImage::Format_RGB888);
+
+        QPixmap pix2 = QPixmap::fromImage(img2);
+        int width = ui->tab11_img2->width();
+        int height = ui->tab11_img2->height();
+        ui->tab11_img2->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));/**/
+
+    }
+
+
+
+
+
+    if (option == "Face Recognition"){
+
+        ui->output_lbl->setVisible(1);
+
+        read_obj.readList(trainListFilePath, trainFacesPath, trainFacesID);  // Read training list and ID from txt file
+
+        // Read training data(faces, eigenvector, average face) from txt file
+        projections =  read_obj.GetSamples(int(trainFacesID.size()), FacesID);
+        meanVec = read_obj.GetMean();
+        eigenVectors = read_obj.GetEigenVectors(int(trainFacesID.size()));
+
+        cout << "Recognize Start......" << endl;
+
+        // Final step: recognize new face from training faces
+        Recognizer faceRecognizer = Recognizer(testImg, meanVec, eigenVectors, projections, FacesID);
+        std::pair<std::string, double> closestFace = faceRecognizer.prepareAndRecognize(testImg, meanVec, eigenVectors, projections, FacesID);
+        string faceID = closestFace.first;
+        QString str = QString::fromUtf8(faceID.c_str());            // Convert label to qstring
+
+        cv::resize(processed, processed, Size(480, 480));
+
+        ui->tab11_prediction->setText(str);
+
+
+        cvtColor(processed, processed, cv::COLOR_BGR2RGB);
+        QImage img2 = QImage((uchar*)processed.data, processed.cols, processed.rows, processed.step, QImage::Format_RGB888);
+
+        QPixmap pix2 = QPixmap::fromImage(img2);
+        int width = ui->tab11_img2->width();
+        int height = ui->tab11_img2->height();
+        ui->tab11_img2->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));
+
+    }
+
 
 }
 

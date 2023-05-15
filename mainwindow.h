@@ -13,6 +13,10 @@
 #include "clustering.h"
 #include "RegionGrowing.h"
 #include "MeanShift.h"
+#include "detector.h"
+#include "readdata.h"
+#include "recognizer.h"
+
 
 
 #include <QMainWindow>
@@ -195,28 +199,23 @@ private slots:
 
     void on_local_tresholding_button_clicked();
 
-//    void on_threshold_button_clicked();
-
+//  void on_threshold_button_clicked();
     void on_Threshold_button_clicked();
-
     void on_tab10_browse_clicked();
-
     void on_cluster_options_currentTextChanged(const QString &arg1);
-
     void on_KMeans_Box_valueChanged(int arg1);
-
     void on_done_button_clicked();
 
-//    void on_region_threshold_textChanged(const QString &arg1);
-
+//  void on_region_threshold_textChanged(const QString &arg1);
     void on_region_threshold_valueChanged(double arg1);
-
     void on_meanshift_done_clicked();
-
-
     void on_spatial_val_valueChanged(double arg1);
-
     void on_color_val_valueChanged(double arg1);
+
+    void on_tab11_browse_clicked();
+    void on_tab11_options_currentTextChanged(const QString &arg1);
+
+
 
 private:
     Ui::MainWindow *ui;
@@ -233,6 +232,8 @@ private:
     Mat DetectedImage_7_2;
     Mat uploadedImage_10;
     Mat uploadedImage_10_Segmented;
+    Mat uploadedImage_11;
+
     Mat GRAYSegmented;
     Mat NormalizedImg;
     Mat EqualizedImg;
@@ -250,8 +251,15 @@ private:
     Mat output_high_image;
 
 
-     Mat segmented_image ;
-     Mat mean_shift_image;
+
+    Mat segmented_image ;
+    Mat mean_shift_image;
+
+
+    Mat meanVec;
+    Mat eigenVectors;
+    Mat projections;
+
 
     Frequency freq;
     Filters kernals;
@@ -268,6 +276,9 @@ private:
     Clustering cluster;
     RegionGrowing Region_Growing;
     MeanShift Mean_shift;
+    Detector faceDetector;
+    ReadData read_obj;
+
 
 
     double noise_value1=0;
@@ -283,12 +294,15 @@ private:
     int S_lyrs = 3;
     int local;
     int global;
-//  int LocalBlockSize;
-
-
+    //int LocalBlockSize;
     //int radius1;
     //int radius2;
 
+
+    string trainListFilePath = "C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/list/train_list.txt";
+    vector<string> trainFacesPath;
+    vector<string> trainFacesID;
+    vector<string> FacesID;
 
 };
 #endif // MAINWINDOW_H
