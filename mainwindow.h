@@ -16,6 +16,7 @@
 #include "detector.h"
 #include "readdata.h"
 #include "recognizer.h"
+#include "roc.h"
 
 
 
@@ -278,6 +279,7 @@ private:
     MeanShift Mean_shift;
     Detector faceDetector;
     ReadData read_obj;
+    ROC roc;
 
 
 

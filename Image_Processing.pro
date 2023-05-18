@@ -29,6 +29,7 @@ SOURCES += \
     mypca.cpp \
     readdata.cpp \
     recognizer.cpp \
+    roc.cpp \
     sift.cpp \
     thresholding.cpp \
     writedata.cpp
@@ -49,6 +50,7 @@ HEADERS += \
     mypca.h \
     readdata.h \
     recognizer.h \
+    roc.h \
     sift.h \
     thresholding.h \
     writedata.h

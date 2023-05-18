@@ -2266,7 +2266,6 @@ void MainWindow::on_tab11_browse_clicked()
     if (!fileName.isEmpty())
     {
 
-
         uploadedImage_11 = imread(fileName.toStdString(),cv::IMREAD_ANYCOLOR);
         QImage image(fileName);
         QPixmap pix = QPixmap::fromImage(image);
@@ -2276,6 +2275,29 @@ void MainWindow::on_tab11_browse_clicked()
         ui->tab11_img1->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
 
     }
+
+
+
+    /* ROC Curve */
+
+    vector<vector<double>> predictions = {{0.8, 0.2, 0.1, 0.3}, {0.6, 0.3, 0.8, 0.1}, {0.3, 0.7, 0.2, 0.5}, {0.2, 0.5, 0.4, 0.2}};
+    vector<string> labels = {"Sara", "Rawan", "Habiba", "Mariam"};
+    roc_data roc_curve = roc.calculate_roc_curve_total(predictions, labels, 4); // generate 7 threshold points
+    Mat plot(500, 500, CV_8UC3, Scalar(255, 255, 255));
+    roc.draw_roc_curve(plot, roc_curve);
+
+
+    cvtColor(plot, plot, cv::COLOR_BGR2RGB);
+    QImage img2 = QImage((uchar*)plot.data, plot.cols, plot.rows, plot.step, QImage::Format_RGB888);
+
+    QPixmap pix2 = QPixmap::fromImage(img2);
+    int width = ui->tab11_img3->width();
+    int height = ui->tab11_img3->height();
+    ui->tab11_img3->setPixmap(pix2.scaled(width,height,Qt::KeepAspectRatio));
+
+    // imshow("ROC Curve", plot);
+
+    on_tab11_options_currentTextChanged("NULL");
 
 }
 
