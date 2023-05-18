@@ -2,10 +2,13 @@
 
 
 
+
 MyPCA::MyPCA(vector<string>& _facesPath)
 {
     init(_facesPath);
 }
+
+
 
 
 
@@ -14,9 +17,9 @@ void MyPCA::init(vector<string>& _facesPath)
 
 
     // Getting input image size
-    Mat sampleImg = imread(_facesPath[0], 0);
+    Mat sampleImg = imread(_facesPath[1], 0);
     imgSize = sampleImg.rows * sampleImg.cols;  // Get the total number of pixels (Dimension of Features)
-    imgRows = imread(_facesPath[0],0).rows;
+
     // Merging matrix
     // Flatten each image to one column & combine them to one matrix
     int col = int(_facesPath.size());
@@ -25,12 +28,17 @@ void MyPCA::init(vector<string>& _facesPath)
     for (int i = 0; i < col; i++) {
 
         Mat tmpMatrix = allFacesMatrix.col(i);
-
         Mat tmpImg;
-        imread(_facesPath[i], 0).convertTo(tmpImg, CV_32FC1);    // Load grayscale image from data set (channel set to 0)
+        Mat im = imread(_facesPath[i], 0);  // Load grayscale image from data set (channel set to 0)
+        im.convertTo(tmpImg, CV_32FC1);
 
-        tmpImg.reshape(1, imgSize).copyTo(tmpMatrix);          // Convert to 1D matrix (Flatten the image)
+        tmpImg.reshape(0, im.cols * im.rows).copyTo(tmpMatrix);
+        //tmpImg.reshape(1, 1).copyTo(tmpMatrix);          // Convert to 1D matrix (Flatten the image) **** (imgSize, 1) (1, imgSize)
+        allFacesMatrix.col(i)  = tmpMatrix;
     }
+
+
+
     //  Getting average vector
     Mat face;
     reduce(allFacesMatrix, avgVector, 1, REDUCE_AVG);
@@ -60,16 +68,19 @@ void MyPCA::init(vector<string>& _facesPath)
 }
 
 
+
 Mat MyPCA::getFacesMatrix()
 {
     return allFacesMatrix;
 }
 
 
+
 Mat MyPCA::getAverage()
 {
     return avgVector;
 }
+
 
 
 Mat MyPCA::getEigenvectors()

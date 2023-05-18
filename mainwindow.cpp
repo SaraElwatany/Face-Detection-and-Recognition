@@ -2334,12 +2334,31 @@ void MainWindow::on_tab11_options_currentTextChanged(const QString &arg1)
         Recognizer faceRecognizer = Recognizer(testImg, meanVec, eigenVectors, projections, FacesID);
         std::pair<std::string, double> closestFace = faceRecognizer.prepareAndRecognize(testImg, meanVec, eigenVectors, projections, FacesID);
         string faceID = closestFace.first;
-        QString str = QString::fromUtf8(faceID.c_str());            // Convert label to qstring
-
         cv::resize(processed, processed, Size(480, 480));
 
-        ui->tab11_prediction->setText(str);
+        /*putText(processed, faceID, Point(10,40), 4, 1, Scalar(0,0,255));
+        imshow("RR", processed);
+        std::cout << faceID << endl;*/
 
+        if(faceID == "S"){
+            faceID = "Sara";
+        }
+
+        else if(faceID == "R"){
+            faceID = "Rawan";
+        }
+
+        else if(faceID == "M"){
+            faceID = "Mariam";
+        }
+
+        else if(faceID == "H"){
+            faceID = "Habiba";
+        }
+
+
+        QString str = QString::fromUtf8(faceID.c_str());            // Convert label to qstring
+        ui->tab11_prediction->setText(str);
 
         cvtColor(processed, processed, cv::COLOR_BGR2RGB);
         QImage img2 = QImage((uchar*)processed.data, processed.cols, processed.rows, processed.step, QImage::Format_RGB888);

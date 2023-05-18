@@ -1,14 +1,12 @@
 #ifndef RECOGNIZER_H
 #define RECOGNIZER_H
 
-
 #include <iostream>
 
 
-#include "opencv2/opencv.hpp"
-#include <opencv2/core.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/highgui.hpp>
+#include "opencv2/core.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/highgui.hpp"
 
 
 
@@ -34,10 +32,12 @@ private:
 
     Mat testVec;
     Mat testPrjFace;
-    string closetFaceID = "None";
-    double closetFaceDist = 50000;   // 3500
+    string closestFaceID = "None";
+    string prevId = closestFaceID;
+    long double closestFaceDist = 3100;   // 3500 50  500   80000
 
 
 };
 
-#endif // FACERECOGNIZER_H
+
+#endif // RECOGNIZER_H

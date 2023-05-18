@@ -3,11 +3,10 @@
 
 
 
-// Load training dataset
 Detector::Detector()
 {
 
-    String face_cascadePath = "C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/haarcascade/haarcascade_frontalface_default.xml";
+    String face_cascadePath = "C:/Users/saraa/OneDrive/Desktop/Computer Vision - Task 5/Face-Detection-Recognition/FRG/haarcascade/haarcascade_frontalface_default.xml";
 
     if ( !face_cascade.load(face_cascadePath) )
         cout << "ERROR: Can not open file" << endl;
@@ -20,11 +19,11 @@ Detector::Detector()
 
 
 
-// Detect Faces
+//
 Mat Detector::GetFace(Mat &inputImage, Mat &toTest) {
 
 
-    Mat Gray;
+    Mat frameGray;
 
     toTest = Mat::zeros(480, 480, inputImage.type());
 
@@ -33,18 +32,18 @@ Mat Detector::GetFace(Mat &inputImage, Mat &toTest) {
         inputImage.col(80 + i).copyTo(toTest.col(i));
     }
 
-
     // Convert the image to grayscale and normalize histogram:
     resize(toTest, toTest, Size(240, 240));
-    cvtColor(toTest, Gray, COLOR_BGR2GRAY);
+    cvtColor(toTest, frameGray, COLOR_BGR2GRAY);
     Mat toReturn;
-    Gray.copyTo(toReturn);
-    equalizeHist(Gray, Gray);
+    frameGray.copyTo(toReturn);
+    // cout << toTest.size() << endl;
+    equalizeHist(frameGray, frameGray);
 
     vector<Rect> facesRec;
 
 
-    face_cascade.detectMultiScale(Gray, facesRec, 1.1, 5, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );   // Detect faces
+    face_cascade.detectMultiScale( frameGray, facesRec, 1.1, 5, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );   // Detect faces
     // cout << "faces: " << facesRec.size() << endl;
 
 
@@ -64,3 +63,4 @@ Mat Detector::GetFace(Mat &inputImage, Mat &toTest) {
 
     return faceToTest;
 }
+

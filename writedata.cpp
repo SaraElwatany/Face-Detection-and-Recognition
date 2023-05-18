@@ -31,7 +31,7 @@ Mat WriteData::project(MyPCA PCA)
     //cout << "Write Class"<< facesMatrix.size() << endl;
 
     int number_Samples = facesMatrix.cols;          // Total number of images in the dataset
-    ProjectedFaces.create(facesMatrix.rows, number_Samples, CV_32FC1);   // trainFacesInEigen.create(number_Samples, number_Samples, CV_32FC1);
+    ProjectedFaces.create(number_Samples, number_Samples, CV_32FC1);   // ProjectedFaces.create(facesMatrix.rows, number_Samples, CV_32FC1);
 
 
     for (int face = 0; face < number_Samples; face++) {
@@ -58,7 +58,7 @@ Mat WriteData::project(MyPCA PCA)
 void WriteData::writeTrainFacesData(vector<string> FacesID)
 {
 
-    string path = "C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/data/facesdata.txt";
+    string path = "C:/Users/saraa/OneDrive/Desktop/Computer Vision - Task 5/Face-Detection-Recognition/FRG/data/facesdata.txt";
     ofstream writeFaceFile(path.c_str(), ofstream::out | ofstream::trunc);
 
     if (!writeFaceFile) {
@@ -94,7 +94,7 @@ void WriteData::writeTrainFacesData(vector<string> FacesID)
 void WriteData::writeMean(Mat mean)
 {
 
-    string path = "C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/data/mean.txt";
+    string path = "C:/Users/saraa/OneDrive/Desktop/Computer Vision - Task 5/Face-Detection-Recognition/FRG/data/mean.txt";
     ofstream writeMeanFile(path.c_str(), ofstream::out | ofstream::trunc);
 
     if (!writeMeanFile) {
@@ -122,7 +122,7 @@ void WriteData::writeMean(Mat mean)
 void WriteData::writeEigen(Mat eigen_Vectors)
 {
 
-    string path = "C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/data/eigen.txt";
+    string path = "C:/Users/saraa/OneDrive/Desktop/Computer Vision - Task 5/Face-Detection-Recognition/FRG/data/eigen.txt";
     ofstream writeEigenFile(path.c_str(), ofstream::out | ofstream::trunc);
 
     if (!writeEigenFile) {

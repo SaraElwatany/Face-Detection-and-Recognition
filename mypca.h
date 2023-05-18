@@ -13,7 +13,6 @@
 #include "opencv2/highgui.hpp"
 
 
-
 using namespace std;
 using namespace cv;
 

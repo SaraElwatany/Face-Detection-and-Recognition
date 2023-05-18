@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 
+
 #include "opencv2/objdetect/objdetect.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/core.hpp"
@@ -28,6 +29,5 @@ private:
     Mat faceToTest;
 
 };
-
 
 #endif // DETECTOR_H

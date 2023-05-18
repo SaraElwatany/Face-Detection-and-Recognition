@@ -299,7 +299,7 @@ private:
     //int radius2;
 
 
-    string trainListFilePath = "C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/list/train_list.txt";
+    string trainListFilePath = "C:/Users/saraa/OneDrive/Desktop/Computer Vision - Task 5/Face-Detection-Recognition/FRG/list/train_list.txt";
     vector<string> trainFacesPath;
     vector<string> trainFacesID;
     vector<string> FacesID;

@@ -15,7 +15,7 @@ ReadData::ReadData()
 
 
 // Read the Id for each person in the data set & the path of his/her image from the text file
-void ReadData::readList(string &filePath, vector<string> &facesPath, vector<string> &facesID)
+void ReadData::readList(string& filePath, vector<string>& facesPath, vector<string>& facesID)
 {
 
     ifstream file(filePath.c_str(), ifstream::in);
@@ -58,7 +58,7 @@ Mat ReadData::GetSamples(int no_samples, vector<string>& faceID)
 {
 
     Mat faces = Mat::zeros(no_samples, no_samples, CV_32FC1);
-    string path = "C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/data/facesdata.txt";
+    string path = "C:/Users/saraa/OneDrive/Desktop/Computer Vision - Task 5/Face-Detection-Recognition/FRG/data/facesdata.txt";
     ifstream readFaces(path.c_str(), ifstream::in);
 
     if (!readFaces) {
@@ -104,7 +104,7 @@ Mat ReadData::GetMean()
 {
 
     Mat mean = Mat::zeros(10000, 1, CV_32FC1);   // 10000x1 Matrix to store the mean of the features (10000)
-    string path = "C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/data/mean.txt";
+    string path = "C:/Users/saraa/OneDrive/Desktop/Computer Vision - Task 5/Face-Detection-Recognition/FRG/data/mean.txt";
     ifstream readMean(path.c_str(), ifstream::in);
 
     if (!readMean) {
@@ -146,7 +146,7 @@ Mat ReadData::GetEigenVectors(int no_samples)
 {
 
     Mat eigen = Mat::zeros(no_samples, 10000, CV_32FC1);       // Matrix to store the values of the eigen vectors
-    string path = "C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/data/eigen.txt";
+    string path = "C:/Users/saraa/OneDrive/Desktop/Computer Vision - Task 5/Face-Detection-Recognition/FRG/data/eigen.txt";
     ifstream readEigen(path.c_str(), ifstream::in);
 
     if (!readEigen) {
