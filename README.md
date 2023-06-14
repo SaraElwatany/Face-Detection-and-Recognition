@@ -21,14 +21,21 @@ The above repository includes our work from the previous tasks (Noising Image, D
 - Sift.cpp (Implementation of SIFT algorithm along with Execution time)
 - featurematching.h
 - featurematching.cpp (Matching of features using SSD & Cross Correlations)
-
-## Added files
 - clustering.h
 - clustering.cpp (Implementation of the k-means & agglomerative clustering for images)
 - thresholding.h
 - thresholding.cpp (Implementation of Optimal , Otsu & Spectral thresholding techniques)
 - regiongrowing.h
 - regiongrowing.cpp (Implementation of Region Growing thresholding)
+
+## Added files
+- detector.h
+- detector.cpp (Implementation of the Face Detection)
+- recognizer.h
+- recognizer.cpp (Implementation of the Face Recognition)
+- regiongrowing.h
+- regiongrowing.cpp (Implementation of Region Growing thresholding)
+
 
 
 
