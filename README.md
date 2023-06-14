@@ -48,8 +48,21 @@ The above repository includes our work from the previous tasks of Computer Visio
 - MainWindow.cpp
 
 
-## Images folder
-- Contains the images we used as samples in our project
+## faces folder
+- Contains the images we used as our training samples in our project but for our privacy we removed it.
+
+
+## haarcascade folder
+- Contains the models we used for face detection.
+
+
+## Data folder
+- Contains the files we used for our model to write and read data.
+
+
+## list folder
+- Contains the paths to our data samples (images) present in the "faces" folder.
+
 
 
 ## Report in pdf format
@@ -69,7 +82,10 @@ The above repository includes our work from the previous tasks of Computer Visio
 
 
 
+## Note
+- To run the project you will have to change the paths of the "faces", "data", "list" & "haarcascade" folders present in the various source & header files to match your own path.
 
+  
 
 ## Used Papers:
 1. [https://people.eecs.berkeley.edu/~malik/cs294/lowe-ijcv04.pdf](https://www.researchgate.net/publication/281446070_Face_Recognition_Using_Eigenfaces)
