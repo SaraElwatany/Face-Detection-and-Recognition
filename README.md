@@ -59,13 +59,14 @@ The above repository includes our work from the previous tasks of Computer Visio
 ## Snapshots from our work
 
 - Face Detection
-![image](https://user-images.githubusercontent.com/93448764/236069187-94105445-c7a8-410f-a4d0-d3b67a61c6b6.png)
+![2023-06-14](https://github.com/SaraElwatany/Face-Detection-and-Recognition/assets/93448764/c66ba332-4cf2-4d9e-8855-42deec3390c3)
 
 - Face Recognition
-![image](https://user-images.githubusercontent.com/93448764/236069248-6b9149ff-bac9-458f-9012-dcc3851440ba.png)
+![2023-06-14 (2)](https://github.com/SaraElwatany/Face-Detection-and-Recognition/assets/93448764/10b5cf12-6ab1-40e9-85fd-21cbc305147b)
 
 - Face Recognition
-![image](https://user-images.githubusercontent.com/93448764/236069482-2bed19c5-5e24-40bc-bd03-32377979bf3b.png)
+![2023-06-14 (1)](https://github.com/SaraElwatany/Face-Detection-and-Recognition/assets/93448764/e8b1cb3a-073d-4f10-a7b7-04d569f5f86d)
+
 
 
 
