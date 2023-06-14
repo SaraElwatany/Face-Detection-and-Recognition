@@ -1,8 +1,8 @@
 # Face Detection and Recognition
 
-# Image Thresholding & Clustering
+# Abstract
 
-The above repository includes our work from the previous tasks (Noising Image, Denoising Image with several types of filters, Edge Detection, Image Normalization, Image Equalization, Histogram plotting, Cumulative Curve plotting, Low & High pass frequency domain filters, Hybrid Images, Line, Circle & Ellipse Detection, Active Contours using greedy algorithm), Harris Corner Detection, SIFT algorithm, SSD , NCC
+The above repository includes our work from the previous tasks of Computer Vision Course (Noising Image, Denoising Image with several types of filters, Edge Detection, Image Normalization, Image Equalization, Histogram plotting, Cumulative Curve plotting, Low & High pass frequency domain filters, Hybrid Images, Line, Circle & Ellipse Detection, Active Contours using greedy algorithm), Harris Corner Detection, SIFT algorithm, SSD , NCC, various image thresholding techniques & clustering.
 
 ## Previous files
 - Filters.h
