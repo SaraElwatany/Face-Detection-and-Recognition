@@ -1,0 +1,5 @@
+1;C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/faces/H1.jpg
+1;C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/faces/H2.jpg
+2;C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/faces/S1.jpg
+2;C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/faces/S2.jpg
+2;C:/Users/saraa/OneDrive/Desktop/FaceRecognition_PCA-master/FRG/faces/S4.jpg
