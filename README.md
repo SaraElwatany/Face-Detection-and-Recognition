@@ -1,4 +1,4 @@
-# A04-Team01
+# Face Detection and Recognition
 
 # Image Thresholding & Clustering
 
