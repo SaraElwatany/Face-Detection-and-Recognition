@@ -72,6 +72,6 @@ The above repository includes our work from the previous tasks (Noising Image, D
 
 ## Used Papers:
 1. [https://people.eecs.berkeley.edu/~malik/cs294/lowe-ijcv04.pdf](https://www.researchgate.net/publication/281446070_Face_Recognition_Using_Eigenfaces)
-2. [https://www.researchgate.net/publication/342449462_Image_Segmentation_using_K-means_Clustering](https://www.researchgate.net/figure/ROC-curve-for-face-recognition_fig28_331906233)https://www.researchgate.net/figure/ROC-curve-for-face-recognition_fig28_331906233
+2. https://www.researchgate.net/figure/ROC-curve-for-face-recognition_fig28_331906233
 
 
